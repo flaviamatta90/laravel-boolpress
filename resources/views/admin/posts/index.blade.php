@@ -19,7 +19,7 @@
                     <td>{{$article->slug}}</td>
                     <td>{{$article->content}}</td>
                     <td>
-                        <a href="{{route('posts.show', $article->slug)}}">View </a>
+                        <a href="{{route('admin.posts.show', $article->slug)}}">View </a>
                             Edit Delete</td>
 
                 </tr>
