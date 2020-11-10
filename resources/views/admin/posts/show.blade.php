@@ -10,6 +10,7 @@
             {{$article->content}}
         </div>
 
+        <a href="{{route('admin.posts.index')}}">Torna ai Post </a>
         <form action="{{route('admin.posts.destroy', $article->id)}}" method="POST">
             @csrf
             @method('DELETE')

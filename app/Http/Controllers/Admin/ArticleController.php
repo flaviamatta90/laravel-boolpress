@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Carbon\Carbon;
-
 
 class ArticleController extends Controller
 {
@@ -96,9 +96,9 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        $article = Article::find($id);
+        $article = Article::where('slug', $slug)->first();
         return view('admin.posts.edit', compact('article'));
     }
 
@@ -109,29 +109,30 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
 
         $request->validate([
             'title'=> 'required',
-            'slug' => 'required|unique:articles',
-            'content' => 'required',
+            'slug' => ['required',
+            Rule::unique('articles')->ignore($id)],
+            'content' => 'required|unique:articles',
             'image' => 'image'
 
         ]);
 
-
-        $id = Auth::id();
+        $path  = Storage::disk('public')->put("images/$id", $data['image']);
 
         $article = Article::find($id);
         $article->user_id = Auth::id();
         $article->title = $data["title"];
         $article->slug = $data["slug"];
         $article->content = $data["content"];
-        $article->update($data);
+        $article->image = $path;
+        $article->update();
 
-        return redirect()->route("admin.posts.show", $article);
+        return redirect()->route("admin.posts.show", $article->slug);
     }
 
     /**
