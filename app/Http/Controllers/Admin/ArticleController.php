@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Article;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
+
 
 class ArticleController extends Controller
 {
@@ -30,7 +33,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -41,7 +44,37 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $request->validate([
+            'title'=> 'required',
+            'slug' => 'required|unique:articles',
+            'content' => 'required',
+            'image' => 'image'
+
+        ]);
+
+        $id = Auth::id();
+
+        $nameOriginal = $data['image']->getClientOriginalName();
+
+        $path  = Storage::putFileAs("images/$id", $data['image'], $nameOriginal);
+        $path  = Storage::disk('public')->putFileAs("images/$id", $data['image'], $nameOriginal);
+
+
+        /* da una path x */
+        /* $path  = Storage::disk('public')->put("images/$id", $data['image']); */
+
+        $newArticle = new Article;
+        $newArticle->user_id = Auth::id();
+        $newArticle->title = $data["title"];
+        $newArticle->slug = $data["slug"];
+        $newArticle->content = $data["content"];
+        $newArticle->image = $path;
+
+        $newArticle->save();
+
+        return redirect()->route('admin.posts.show', $newArticle->slug);
     }
 
     /**
