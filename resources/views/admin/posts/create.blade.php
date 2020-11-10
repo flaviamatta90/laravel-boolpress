@@ -7,11 +7,11 @@
             @method('POST')
             <div class="form-group">
               <label for="title">Titolo</label>
-              <input type="text" class="form-control" id="title" name="title" placeholder="Insert title">
+              <input type="text" class="form-control" id="title" name="title" placeholder="Insert title" value="{{old("title")}}">
             </div>
             <div class="form-group">
               <label for="slug">Slug</label>
-              <input type="text" class="form-control" id="slug" name='slug' placeholder="Insert slug">
+              <input type="text" class="form-control" id="slug" name='slug' placeholder="Insert slug" value="{{old("slug")}}">
             </div>
             <div class="form-group">
                 <label for="image">Inserisci un immagine</label>
@@ -19,7 +19,7 @@
               </div>
             <div class="form-group">
                 <label for="content">Content</label>
-                <textarea name="content" class="form-control" id="content"  cols="20" rows="10"></textarea>
+                <textarea name="content" class="form-control" id="content"  cols="20" rows="10" {{old("content")}}></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
 

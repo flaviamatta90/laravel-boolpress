@@ -124,9 +124,11 @@ class ArticleController extends Controller
 
         $id = Auth::id();
 
-        $path  = Storage::disk('public')->put("images/$id", $data['image']);
-
         $article = Article::find($id);
+        $article->user_id = Auth::id();
+        $article->title = $data["title"];
+        $article->slug = $data["slug"];
+        $article->content = $data["content"];
         $article->update($data);
 
         return redirect()->route("admin.posts.show", $article);
