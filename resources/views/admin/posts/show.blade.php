@@ -9,8 +9,13 @@
         <div>
             {{$article->content}}
         </div>
-
-        <a href="{{route('admin.posts.index')}}">Torna ai Post </a>
+        
+        <a class="btn btn-success" href="{{route('admin.posts.index')}}" role="button">Torna ai Post </a>
+        <style>
+            .btn-success{
+                margin:25px 0;
+            }
+        </style>
         <form action="{{route('admin.posts.destroy', $article->id)}}" method="POST">
             @csrf
             @method('DELETE')
