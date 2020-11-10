@@ -7,6 +7,7 @@
               <tr>
                 <th scope="col">Title</th>
                 <th scope="col">Slug</th>
+                <th scope="col">Image</th>
                 <th scope="col">Content</th>
                 <th scope="col">Azioni</th>
 
@@ -17,10 +18,13 @@
                 <tr>
                     <td>{{$article->title}}</td>
                     <td>{{$article->slug}}</td>
+                    <td>{{$article->image}}</td>
                     <td>{{$article->content}}</td>
                     <td>
                         <a href="{{route('admin.posts.show', $article->slug)}}">View </a>
-                            Edit Delete</td>
+                        <a href="{{route('admin.posts.create', $article->slug)}}">Create</a>
+                        <a href="{{route('admin.posts.destroy', $article->slug)}}">Delete</a>
+                        Edit</td>
 
                 </tr>
               @endforeach

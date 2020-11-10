@@ -58,7 +58,7 @@ class ArticleController extends Controller
 
         $nameOriginal = $data['image']->getClientOriginalName();
 
-        $path  = Storage::putFileAs("images/$id", $data['image'], $nameOriginal);
+        /* $path  = Storage::putFileAs("images/$id", $data['image'], $nameOriginal); */
         $path  = Storage::disk('public')->putFileAs("images/$id", $data['image'], $nameOriginal);
 
 
@@ -96,9 +96,10 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function edit(Article $article)
+    public function edit($id)
     {
-        //
+        $article = Article::find($id);
+        return view('admin.posts.edit', compact('article'));
     }
 
     /**
@@ -110,7 +111,25 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        //
+        $data = $request->all();
+
+        $request->validate([
+            'title'=> 'required',
+            'slug' => 'required|unique:articles',
+            'content' => 'required',
+            'image' => 'image'
+
+        ]);
+
+
+        $id = Auth::id();
+
+        $path  = Storage::disk('public')->put("images/$id", $data['image']);
+
+        $article = Article::find($id);
+        $article->update($data);
+
+        return redirect()->route("admin.posts.show", $article);
     }
 
     /**
@@ -119,8 +138,11 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy(Article $article, $id)
     {
-        //
+        $article = Article::find($id);
+
+        $article->delete();
+        return redirect()->route("admin.posts.index")->with('success', 'Pattern was deleted successfully.');
     }
 }
