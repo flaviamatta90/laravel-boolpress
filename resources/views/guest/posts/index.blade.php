@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
   <title>Blog Home - Start Bootstrap Template</title>
 
@@ -66,7 +67,7 @@
 
         @foreach ($articles as $article)
         <div class="card mb-4">
-            <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSDFuGBKrJFr24PZYsXrUWuEzEtVdvDcGPJkw&usqp=CAU" alt="Card image cap">
+            <img class="card-img-top" src="{{asset('storage/'.$article->image)}}" alt="Card image cap">
             <div class="card-body">
                 <h2 class="card-title">{{$article->title}}</h2>
               <p class="card-text">{{$article->content}}</p>

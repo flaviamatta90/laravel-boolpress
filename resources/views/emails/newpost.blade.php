@@ -1,7 +1,6 @@
-@component('mail::message')
-# Introduction
 
-The body of your message.
+@component('mail::message')
+<h1>Grazie per il tuo post->{{$article->title}}</h1>
 
 @component('mail::button', ['url' => ''])
 Button Text
@@ -11,5 +10,3 @@ Thanks,<br>
 {{ config('app.name') }}
 @endcomponent
 
-
-<h1>PROVA INVIO</h1>
