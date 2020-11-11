@@ -12,7 +12,7 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::all();
-        $date = new Carbon();
+        $date = Carbon::now()->format('Y');
         return view('guest.posts.index', compact('articles'))->with('date', $date);
     }
 }

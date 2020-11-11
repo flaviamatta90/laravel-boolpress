@@ -54,8 +54,8 @@
               <a href="{{route('posts.show', $article->slug)}}" class="btn btn-primary">Read More &rarr;</a>
             </div>
             <div class="card-footer text-muted">
-              {{$article->user->name}}
-              {{$date}}
+              {{ $article->user->name }}
+              ~ {{ $date }}
             </div>
           </div>
         @endforeach
