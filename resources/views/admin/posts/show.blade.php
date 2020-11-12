@@ -9,6 +9,9 @@
         <div>
             {{$article->content}}
         </div>
+        <div>
+            {{$article->tag}}
+        </div>
         
         <a class="btn btn-success" href="{{route('admin.posts.index')}}" role="button">Torna ai Post </a>
         <style>

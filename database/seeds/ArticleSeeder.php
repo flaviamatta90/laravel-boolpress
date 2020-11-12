@@ -25,6 +25,7 @@ class ArticleSeeder extends Seeder
             $newArticle->title = $faker->sentence(6, true);
             $newArticle->content = $faker->paragraph(6, true);
             $newArticle->slug = Str::of($newArticle->title)->slug('-');
+            $newArticle->tag = $faker->words($nb = 3, $asText = false);
             $newArticle->save();
         }
     }

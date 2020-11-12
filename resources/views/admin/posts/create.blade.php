@@ -21,6 +21,10 @@
                 <label for="content">Content</label>
                 <textarea name="content" class="form-control" id="content"  cols="20" rows="10" {{old("content")}}></textarea>
             </div>
+            <div class="form-group">
+                <label for="tag">Tag</label>
+                <input type="text" class="form-control" id="tag" name='tag' placeholder="Insert tag" value="{{old("tag")}}">
+              </div>
             <button type="submit" class="btn btn-primary">Submit</button>
 
             @if ($errors->any())

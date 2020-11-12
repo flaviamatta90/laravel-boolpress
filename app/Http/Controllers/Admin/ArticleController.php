@@ -52,7 +52,8 @@ class ArticleController extends Controller
             'title'=> 'required',
             'slug' => 'required|unique:articles',
             'content' => 'required',
-            'image' => 'image'
+            'image' => 'image',
+            'tag' => 'required'
 
         ]);
 
@@ -73,6 +74,7 @@ class ArticleController extends Controller
         $newArticle->slug = $data["slug"];
         $newArticle->content = $data["content"];
         $newArticle->image = $path;
+        $newArticle->tag = $data["tag"];
 
         $newArticle->save();
 
@@ -122,7 +124,8 @@ class ArticleController extends Controller
             'slug' => ['required',
             Rule::unique('articles')->ignore($id)],
             'content' => 'required|unique:articles',
-            'image' => 'image'
+            'image' => 'image',
+            'tag'=> 'required'
 
         ]);
 
@@ -134,6 +137,8 @@ class ArticleController extends Controller
         $article->slug = $data["slug"];
         $article->content = $data["content"];
         $article->image = $path;
+        $article->tag = $data["tag"];
+
         $article->update();
 
         return redirect()->route("admin.posts.show", $article->slug);
